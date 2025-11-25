@@ -14,18 +14,22 @@ visited[N][0] = true
 queue.append(N)
 
 while head < queue.count {
-    
+
+    if K > 500_000 {
+        break
+    }
+
     if K <= 500_000 && visited[K][time % 2] == true {
         isImpossible = false
         break
     }
-    
+
     let level = queue.count - head
 
     for _ in 0..<level {
         let front = queue[head]
         head += 1
-        
+
         for position in [front - 1, front + 1, front * 2] {
             if position < 0 || position > 500_000 { continue }
             if visited[position][(time + 1) % 2] { continue }
@@ -33,7 +37,7 @@ while head < queue.count {
             queue.append(position)
         }
     }
-    
+
     time += 1
     K += time
 }
